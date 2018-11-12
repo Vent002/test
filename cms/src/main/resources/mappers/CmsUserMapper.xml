@@ -7,7 +7,7 @@
       user_age userAge,
       user_sex
     </sql>
-    <select id="findById" parameterType="Integer" resultType="CmsUser">
+    <select id="findById" parameterType="Integer" resultType="com.test.gao.cms.entity.CmsUser">
         select 
         <include refid="ref_column"/>
         from user_info where

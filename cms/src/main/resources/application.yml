@@ -1,15 +1,15 @@
 server:
-  port: ${port:8080}
+  port: 8080
   servlet:
     context-path: /cms
   tomcat:
     uri-encoding: UTF-8
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/spring_test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/gxm?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
     username: root
-    password: 123456
+    password: 123
   http:
     encoding:
       charset: UTF-8
@@ -17,5 +17,4 @@ spring:
       enabled: true
 
 mybatis:
-  config-location: classpath:mappers/*.xml
-  type-aliases-package: com.test.gao.cms.entity
+  mapper-locations: classpath:mappers/*.xml

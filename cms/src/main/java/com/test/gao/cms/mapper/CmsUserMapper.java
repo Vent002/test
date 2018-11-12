@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface CmsUserMapper {
-    public CmsUser findById(int id);
+
+    CmsUser findById(int id);
    // public List<CmsUser> findAll();
 }
