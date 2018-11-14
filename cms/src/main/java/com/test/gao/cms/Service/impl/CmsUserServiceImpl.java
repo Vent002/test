@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class CmsUserServiceImpl implements CmsUserService {
@@ -17,4 +19,22 @@ public class CmsUserServiceImpl implements CmsUserService {
     public CmsUser selectById(int id) {
         return cmsUserMapper.findById(id);
     }
+
+    public List<CmsUser> selectAll(){
+        return cmsUserMapper.findAll();
+    }
+
+    public void updateUserInfo(CmsUser cmsUser) {
+        cmsUserMapper.update(cmsUser);
+    }
+
+
+    public void insertUserInfo(CmsUser cmsUser){
+        cmsUserMapper.insert(cmsUser);
+    }
+
+    public void delete(int id) {
+        cmsUserMapper.delete(id);
+    }
+
 }

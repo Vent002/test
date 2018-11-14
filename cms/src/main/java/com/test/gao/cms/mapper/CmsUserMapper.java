@@ -10,6 +10,13 @@ import java.util.List;
 @Repository
 public interface CmsUserMapper {
 
-    CmsUser findById(int id);
-   // public List<CmsUser> findAll();
+    public CmsUser findById(int id);
+
+    public List<CmsUser> findAll();
+
+    public void update(CmsUser cmsUser);
+
+    public void insert(CmsUser cmsUser);
+
+    public void delete(int id);
 }

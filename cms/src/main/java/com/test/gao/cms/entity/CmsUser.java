@@ -1,15 +1,15 @@
 package com.test.gao.cms.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+
 import lombok.ToString;
 
-@Getter
-@Setter
+@Data
 @ToString
 public class CmsUser {
     private int id;
     private String userName;
     private String userAge;
     private int userSex;
+
 }
