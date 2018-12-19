@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.exam.stem.last.mapper.StemContentInfoMapper">
+    <sql id="stem_info">
+        id,
+        stem_id as stemId,
+        stem_content as stemContent
+    </sql>
+    <select id="findById" parameterType="integer" resultType="com.exam.stem.last.entity.StemContentInfo">
+        select
+        <include refid="stem_info"/>
+        from stem where
+        id=#{id}
+    </select>
+</mapper>
