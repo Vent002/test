@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.gao.cms.mapper.StemInfoMapper">
+    <sql id="ref_Column">
+        id,
+        stem_id as stemId,
+        stem_content as stemContent
+    </sql>
+    <select id="findByStemId" parameterType="Integer" resultType="com.test.gao.cms.mapper.StemInfoMapper">
+        select
+        <include refid="ref_Column"/>
+        from stem where
+        stem_id=#{stemId}
+    </select>
+</mapper>

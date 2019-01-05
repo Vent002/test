@@ -1,0 +1,13 @@
+table{
+    border: #2d124c 1px solid;
+    line-height: 30px;
+    margin-left: 10px;
+}
+td{
+    border: gray 1px solid;
+    text-align: center;
+}
+th{
+    border: gray 1px solid;
+    text-align: center;
+}
