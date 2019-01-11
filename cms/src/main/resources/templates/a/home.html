@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="../../static/assets/css/bootstrap.min.css"
+          th:src="@{../../static/assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" href="../../static/assets/css/home.css"
+          th:src="@{.././static/assets/css/home.css}">
+    <link href="../../static/assets/js/bootstrap.min.js"
+          th:src="@{../../static/assets/js/bootstrap.min.js}">
+    <script src="../../static/assets/js/jquery.min.js"
+            th:src="@{../../static/assets/js/jquery.min.js}"></script>
+
+<script type="text/javascript">
+	 var time;
+		      window.onload= function(){
+				if(localStorage.getItem('times')==null){
+			localStorage.setItem('times',1);
+			}
+		time =  parseInt(localStorage.getItem('times'));
+
+		var msg = "这是你第"+parseInt(localStorage.getItem('times'))+"次进入考试,请仔细作答，一共有五次作答机会)";
+		alert(msg);
+		time ++;
+		localStorage.setItem('times',time);
+
+		if(time>6555){
+			alert("考试次数已用完，请清除本地缓存(local storage)");
+			location.href = "index.html";
+			}
+	}
+
+     var maxtime = 900; //一个小时，按秒计算，自己调整!
+     function timeOut(){ //时间到 被动提交
+         if(window.confirm("答题时间已到，请提交！若选择否，则会清空所有已选内容，本次测试作废！")){
+
+         }
+         else{
+             for(var i=1;i<11;i++){ //循环清除单选框状态
+                 $("input:radio[name='no."+i+"']").prop("checked", false);
+             }
+         }
+     }
+     function CountDown() {
+         if (maxtime >= 0) {
+             minutes = Math.floor(maxtime / 60);
+             seconds = Math.floor(maxtime % 60);
+             msg = "距离结束还有" + minutes + "分" + seconds + "秒,请考试注意时间作答！";
+
+             document.all["timer"].innerHTML = msg;
+             --maxtime;
+             if(maxtime < 0){
+                 clearInterval(timer);
+                 timeOut();
+                 //alert("时间到，结束!");
+             }
+         }
+     }
+     timer = setInterval("CountDown()", 1000);
+
+     $("#btn1").click(function () {//主动提交
+         if(window.confirm("确定提交？")){
+             alert("提交成功");
+             //页面跳转 存数据库
+         }
+         else{
+             //继续答题
+         }
+     });
+
+  </script>
+</head>
+<body>
+<table>
+    <tr>
+        <td>
+        <a href="http://www.cwnu.edu.cn"><div class="clogo">
+        <img src="../../static/images/cwun_logo.png" /></div></a>
+
+        </td>
+    <tr>
+        <td>
+        <div id="timer"  >距离结束还有5分0秒,请考试注意时间作答！</div>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+    <div class="panel panel-default" style="margin-left:60px; margin-right:60px; margin-top:30px;">
+        <div class="panel-heading" >完型填空&nbsp;&nbsp;&nbsp;<input class="btn btn-primary"  type="submit" id="btn1" value="作答完成" /></div>
+        <div class="panel-heading score" style="color:#F00; height:70px; font-size:35px;" value="${score}">得分：</div>
+        <div class="panel-body" >
+          <h1><p>第<span th:text="${session.stemid}"></span>题</p></h1>
+            <p id="form-content">
+            </p>
+        </div>
+        <div class="form-div">
+            <div class="form-div-table">
+                <table  id="chooseStem">
+
+                </table>
+            </div>
+        </div>
+    </div>
+<div style="margin-top:130px; color:#000; size:10px; text-align:center;"><a>版权申明 付国海 高兴明 何世梅 张梦斯 &copy; 西华师范大学</a></div>
+
+</body>
+<script type="text/javascript">
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+        if (r != null) return unescape(r[2]); return null; //返回参数值
+    }
+//获取到状态栏上的题目编号
+    var stemid = getUrlParam('stemid');
+    $("#contentId").html(stemid);
+
+    //加载完型填空题目
+    jQuery(function() {
+        //加载完型填空文章
+        jQuery.get("/index/selectStemById", {'stemid': stemid}, function (stemInfo) {
+            var cont = stemInfo.stemContent;
+            $("#form-content").append(cont);
+        });
+        //加载完型填空选项
+        jQuery.get("/result/stemQuestionInfo", {'stemid': stemid}, function (questionAnswer) {
+
+            var rAnswer = [];
+
+            jQuery.each(questionAnswer.stemQuestionInfos, function (index, value) {
+                var question= value;
+
+                var answer = questionAnswer.stemRightAnswerInfos[index];
+
+                var str = "<tr\>" +
+                    "<td\>" + question.chooseId + ".\<\/td\>" +
+                    "<td\>" + "<input class='chooseA' type='radio' name='" + question.chooseId + "' value='A' />&nbsp;&nbsp;A.&nbsp;" + question.chooseA + "<\/td\>" +
+                    "<td\>" + "<input class='chooseB' type='radio' name='" + question.chooseId + "' value='B' />&nbsp;&nbsp;B.&nbsp;" + question.chooseB + "<\/td\>" +
+                    "<td\>" + "<input class='chooseC' type='radio' name='" + question.chooseId + "' value='C' />&nbsp;&nbsp;C.&nbsp;" + question.chooseC + "<\/td\>" +
+                    "<td\>" + "<input class='chooseD' type='radio' name='" + question.chooseId + "' value='D' />&nbsp;&nbsp;D.&nbsp;" + question.chooseD + "<\/td\>" +
+                    "<td\>" + "&nbsp;&nbsp;&nbsp;&nbsp;<span  class='answer' style='display:none' >" + answer.rightAnswer + "</span>\<\/td\>" +
+                    "<td\>" + "&nbsp;&nbsp;&nbsp;&nbsp;<span  class='answer' style='display:none' >" + answer.answeranalysis + "</span>\<\/td\>" +
+                    "<\/tr\>";
+
+                rAnswer.push(answer.rightAnswer);//将正确答案存入数组中
+                $("#chooseStem").append(str);
+
+            });
+
+            $("#btn1").click(function () {
+
+                var num = $("#chooseStem").find("tr").length;
+
+                var vanswer = [];
+                var score=0;
+                var flag =0;
+
+                $("#chooseStem tr").each(function (i,v) {
+                    var vl = $(v).find('input[type=radio]:checked').val();
+                    if(vl!=undefined){
+                        flag++;
+                    }
+                   vanswer.push(vl);
+                });
+
+                console.log(vanswer);
+                if(flag == 0){
+                    alert("请作答！");
+                    return;
+                }
+               if(flag < num){
+                    alert("请完成作答！");
+                    return;
+                }
+                for (var j = 0;j<num;j++) {
+                    if (vanswer[j] == rAnswer[j]) {
+                        score++;
+                    }
+                }
+                $(".score").html("分数："+score);
+
+                $(".answer").show();
+
+            });
+        });
+    });
+</script>
+</html>

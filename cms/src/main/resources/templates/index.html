@@ -1,80 +1,55 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>西华师范大学-完形填空抽题</title>
-    <script src="../static/assets/js/jquery-1.11.3.min.js"
-            th:src="@{/static/assets/js/jquery-1.11.3.min.js}"></script>
-    <style>
-        .form-title{
-            width: 100%;
-            margin: 0 auto;
-            text-align: center;
-        }
-        .form-stem-content{
-            width: 100%;
-            height: auto;
-        }
-        .form-stem{
-            width: 55%;
-            height: auto;
-            margin: auto;
-        }
-        .form-stem-content-num{
-            width: 100%;
-            display: block;
-        }
-        .form-stem-content-text{
-            width: 100%;
-            height: 50%;
-            margin-left: 10%;
-        }
-        .form-stem-content-text-content{
-            width: 80%;
-            height: 45%;
-            margin: auto;
-            border: #000000 solid 1px;
-        }
-    </style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>西华师范大学-英语完形填空</title>
 </head>
+    <link rel="stylesheet" type="text/css" href="../static/assets/css/index.css"
+          th:src="@{../static/assets/css/index.css}" />
+	<script src="../static/assets/js/jquery.min.js"
+		th:src="@{/static/assets/js/jquery.min.js}"></script>
 <body>
-<div class="form-title"><h1>完形填空</h1></div>
-<div class="form-stem-content">
-    <div class="form-stem">
-        <div class="form-stem-content-num"><p><label><h3>第<span th:text="${}"></span>题</h3></label></p></div>
-        <div class="form-stem-content-text">
-                    <textarea class="form-stem-content-text-content">
 
-                    </textarea>
-        </div>
-        <div class="form-stem-content-num"><p><label><h3>选项</h3></label></p></div>
-        <div>
-            <table id="chooseStem">
+<script>
 
-            </table>
-        </div>
-    </div>
+function check(){
+    if (true) {
+        $("#btn").attr("style","display:'';");  //给BUTTON按钮的display属性赋值
+
+    } else {
+        $("#btn").attr("style", "display:none;");
+    }
+}
+$("#btn").click(function () {
+   if($("input[type=text]").val()==""){
+       alert("请输入题号：如1001");
+       return;
+   }
+});
+
+</script>
+
+<img src=".././static/images/bgImg1.jpg" class="bgImg">
+
+<div class="content">
+	<div class="bidTitle">在线英语完形填空测试</div>
+	<div class="logCon">
+		<form action="/index/content" method="get">
+			<div class="line"  ><span>请输入题号:</span>
+			<input placeholder="eg:1001" id="contentid" class="bt_input" type="text" name="stemid" ></div>
+
+
+			<br/>
+			<input type="checkbox" id="cn" onclick="check()"  />*依照学术诚信条款，我保证此考试是本人独立完成的。
+			<br/>
+			<button type="submit" class="logingBut" id="btn" style="display: none" >进入考试</button>
+	</form>
+	</div>
 </div>
 
-<script type="text/javascript">
-    /* 该方法是页面启动时进行加载 */
-    jQuery(function(){
-        jQuery.post("/index/selectById",function(stemQuestionInfos){
-            jQuery.each(stemQuestionInfos,function(i,sqinfo){
-                var str ="\<tr\>" +
-                    "\<td\>\<input type\=\'radiobutton\'\/\>\<\/td\>" +
-                    <!-- "\<td\>" + sqinfo.stemId +"\<\/td\>" + -->
-                    "\<td\>" + sqinfo.chooseId +"\<\/td\>" +
-                    "\<td\>" + sqinfo.chooseA +"\<\/td\>" +
-                    "\<td\>" + sqinfo.chooseB +"\<\/td\>" +
-                    "\<td\>" + sqinfo.chooseC +"\<\/td\>" +
-                    "\<td\>" + sqinfo.chooseD +"\<\/td\>" +
-                    "\<\/tr\>";
-                $("#chooseStem").append(str);
-            });
-        });
-    });
-</script>
+
 
 </body>
 </html>
+
+

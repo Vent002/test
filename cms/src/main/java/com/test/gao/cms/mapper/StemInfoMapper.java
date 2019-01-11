@@ -7,5 +7,8 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface StemInfoMapper {
-    public StemInfo findByStemId(int stemid);
+    StemInfo findStemById(int stemid);
+
+    int insert(StemInfo stemInfo);
+
 }

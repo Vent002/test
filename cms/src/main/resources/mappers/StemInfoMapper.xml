@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.test.gao.cms.mapper.StemInfoMapper">
-    <sql id="ref_Column">
+    <resultMap id="BaseResultMap" type="com.test.gao.cms.entity.StemInfo">
+        <constructor>
+            <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="stem_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="stem_content" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
         id,
         stem_id as stemId,
         stem_content as stemContent
     </sql>
-    <select id="findByStemId" parameterType="Integer" resultType="com.test.gao.cms.mapper.StemInfoMapper">
+    <select id="findStemById" resultType="com.test.gao.cms.entity.StemInfo">
         select
-        <include refid="ref_Column"/>
-        from stem where
+        <include refid="Base_Column_List"/>
+        from stem_info where
         stem_id=#{stemId}
     </select>
+    <insert id="insertStemContent" parameterType="com.test.gao.cms.entity.StemInfo">
+        insert into stem_info (id,stem_id,stem_content)
+        values(#{id},#{stemId},#{stemContent})
+    </insert>
+
 </mapper>

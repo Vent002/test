@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>西华师范大学-英语完形填空</title>
+</head>
+<link rel="stylesheet" type="text/css" href="../../../static/assets/css/index.css"
+      th:src="@{../../../static/assets/css/index.css}" />
+<script src="../../../static/assets/js/jquery.min.js"
+        th:src="@{../../../static/assets/js/jquery.min.js}"></script>
+<body>
+<img src="../../../static/images/bgImg1.jpg" class="bgImg">
+
+<div class="content">
+    <div class="bidTitle">英语完形填空添加题库</div>
+    <div class="logCon">
+        <div class="line"  ><span>请输入题号:</span>
+            <form action="/admin" method="get" >
+                <input class="bt_input" type="text" name="stemId"></div>
+        <div class="line"  ><span>请输入题干:</span><br/>
+            <input class="bt_input" type="text" name="stemContent"></div>
+
+        <br/>
+        <br/>
+        <button type="submit" class="logingBut" id="btn" onclick="tz()" value="添加试题">添加试题</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

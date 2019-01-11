@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../static/assets/css/bootstrap.min.css"
+          th:src="@{../../static/assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" href="../../static/assets/css/home.css"
+          th:src="@{.././static/assets/css/home.css}">
+    <link href="../../static/assets/js/bootstrap.min.js"
+          th:src="@{../../static/assets/js/bootstrap.min.js}">
+    <script src="../../static/assets/js/jquery.min.js" th:src="@{../../static/assets/js/jquery.min.js}"></script>
+
+</head>
+<body>
+<table>
+    <tr>
+        <td>
+            <a href="http://www.cwnu.edu.cn"><div class="clogo">
+                <img src="../../static/images/cwun_logo.png" /></div></a>
+
+        </td>
+    <tr>
+        <td>
+            <div id="timer">答题结束</div>
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+<div class="panel panel-default" style="margin-left:60px; margin-right:60px; margin-top:30px;">
+    <div class="panel-heading" >完型填空&nbsp;&nbsp;&nbsp;<input class="btn btn-primary" onclick="goIndex()" type="submit" id="btn1" value="首页" /></div>
+    <div class="panel-heading" style="color:#F00; height:70px; font-size:35px;">得分：</div>
+    <div class="panel-body" >
+        <h1><p>第<span th:text="${session.stemid}"></span>题</p></h1>
+        <p id="form-content">
+        </p>
+    </div>
+    <div class="form-div">
+        <div class="form-div-table">
+            <table  id="chooseStem">
+
+            </table>
+        </div>
+    </div>
+</div>
+<div style="margin-top:130px; color:#000; size:10px; text-align:center;"><a>版权申明 付国海 高兴明 何世梅 张梦斯 &copy; 西华师范大学</a></div>
+
+</body>
+<script type="text/javascript">
+      jQuery(function() {
+          <!-- 获取选项-->
+          jQuery.get("/index/stemQuestionInfo", function (stemQuestionInfos) {
+              stemQuestioninfo =stemQuestionInfos;
+              jQuery.each(stemQuestionInfos, function (i, sqinfo) {
+                  var str = "\<tr\>" +
+                      "\<td\>" + sqinfo.chooseId + "\<\/td\>" +
+                      "\<td\>" + "<input class='chooseA' type='radio' name='" + sqinfo.chooseId + "' value='A' />A.&nbsp;&nbsp;" + sqinfo.chooseA + "\<\/td\>" +
+                      "\<td\>" + "<input class='chooseB' type='radio' name='" + sqinfo.chooseId + "' value='B' />B.&nbsp;&nbsp;" + sqinfo.chooseB + "\<\/td\>" +
+                      "\<td\>" + "<input class='chooseC' type='radio' name='" + sqinfo.chooseId + "' value='C' />C.&nbsp;&nbsp;" + sqinfo.chooseC + "\<\/td\>" +
+                      "\<td\>" + "<input class='chooseD' type='radio' name='" + sqinfo.chooseId + "' value='D' />D.&nbsp;&nbsp;" + sqinfo.chooseD + "\<\/td\>" +
+                      "\<\/tr\>";
+                  $("#chooseStem").append(str);
+              });
+          });
+          <!-- 获取题干-->
+          jQuery.get("/index/selectStemById", {'stemid': stemid}, function (stemInfo) {
+              var cont = stemInfo.stemContent;
+              $("#form-content").append(cont);
+          });
+
+          <!-- 获取正确答案-->
+          jQuery.get("/result/rightAnswer", {'stemid': stemid}, function (stemRightAnswerInfos) {
+              StemRightAnswerInfo = stemRightAnswerInfos;
+              jQuery.each(stemRightAnswerInfos, function (i, rightAnswer) {
+                  var str = "\<tr\>" +
+                      "\<td\>" + rightAnswer.rightAnswer + "\<\/td\>" +
+                      "\<\/tr\>";
+                  $("#chooseStem").append(str);
+              });
+          });
+          <!-- 填写用户答案-->
+          jQuery.get("/index/exam/userAnswer",{"stemid":stemid},function (uAnswer) {
+              jQuery.each(uAnswer,function (i,userAnswer) {
+
+              })
+          })
+      });
+
+      var goIndex = function () {
+          window.location.href = "../index.html"
+      }
+
+</script>
+</html>

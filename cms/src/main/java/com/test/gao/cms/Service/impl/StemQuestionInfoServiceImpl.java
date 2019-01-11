@@ -16,25 +16,7 @@ public class StemQuestionInfoServiceImpl implements StemQuestionInfoService {
     @Autowired
     private StemQuestionInfoMapper stemQuestionInfoMapper;
 
-    public List<StemQuestionInfo> selectById(int id) {
-        return stemQuestionInfoMapper.findById(id);
+    public List<StemQuestionInfo> selectQuestionById(int questionid) {
+        return stemQuestionInfoMapper.findQuestionById(questionid);
     }
-
-//    public List<StemQuestionInfo> selectAll(){
-//        return cmsUserMapper.findAll();
-//    }
-//
-//    public void updateUserInfo(StemQuestionInfo cmsUser) {
-//        cmsUserMapper.update(cmsUser);
-//    }
-//
-//
-//    public void insertUserInfo(StemQuestionInfo cmsUser){
-//        cmsUserMapper.insert(cmsUser);
-//    }
-//
-//    public void delete(int id) {
-//        cmsUserMapper.delete(id);
-//    }
-
 }

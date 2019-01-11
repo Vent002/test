@@ -16,7 +16,7 @@ public class StemQuestionInfoServiceImplTest {
     private StemQuestionInfoService stemQuestionInfoService;
     @Test
     public void selectById() {
-        System.out.println(stemQuestionInfoService.selectById(1001));
+        System.out.println(stemQuestionInfoService.selectQuestionById(1001));
     }
 
 //    @Test

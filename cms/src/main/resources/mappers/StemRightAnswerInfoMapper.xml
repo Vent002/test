@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.gao.cms.mapper.StemRightAnswerInfoMapper">
+    <resultMap id="BaseResultMap" type="com.test.gao.cms.entity.StemRightAnswerInfo">
+        <constructor>
+            <idArg column="stem_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="choose_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="right_answer" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="answer_analysis" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+      stem_id as stemId,
+      choose_id as chooseId,
+      right_answer as rightAnswer,
+      answer_analysis as answerAnalysis
+    </sql>
+
+    <select id="findAnswerById" resultType="com.test.gao.cms.entity.StemRightAnswerInfo"><!--id是mapper下接口中的方法名-->
+        select
+        <include refid="Base_Column_List"/>
+        from stem_answer where
+        stem_id=#{stemId}
+    </select>
+
+
+</mapper>

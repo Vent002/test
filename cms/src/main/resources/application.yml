@@ -1,7 +1,7 @@
 server:
-  port: 8080
+  port: {port:8080}
   servlet:
-    context-path: /cms
+    context-path:
   tomcat:
     uri-encoding: UTF-8
 spring:
@@ -15,6 +15,11 @@ spring:
       charset: UTF-8
       force: true
       enabled: true
-
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+  mvc:
+    static-path-pattern: /static/**
 mybatis:
   mapper-locations: mappers/*.xml
